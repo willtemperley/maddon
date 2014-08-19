@@ -30,6 +30,11 @@ public class MTable<T> extends Table {
 
     public MTable() {
     }
+    
+    public MTable(ListContainer<T> bic) {
+    	this.bic = bic;
+        setContainerDataSource(bic);
+    }
 
     /**
      * Constructs a Table with explicit bean type. Handy for example if your

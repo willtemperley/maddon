@@ -15,18 +15,13 @@
  */
 package org.vaadin.maddon;
 
-import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.Table;
-
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 import junit.framework.Assert;
 
 import org.junit.Rule;

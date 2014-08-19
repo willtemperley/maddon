@@ -102,6 +102,15 @@ public class MTextField extends TextField {
         // Remove once 7.2 is out
         setImmediate(true);
     }
+    
+    public void addMValueChangeListener(final MValueChangeListener<String> listener) {
+        super.addValueChangeListener(new Property.ValueChangeListener() {
+			@Override
+			public void valueChange(Property.ValueChangeEvent event) {
+				listener.valueChange(new MValueChangeEventImpl<String>(MTextField.this));
+			}
+		});
+    }
 
     public MTextField withConversionError(String message) {
         setImmediate(true);

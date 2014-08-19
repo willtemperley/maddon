@@ -14,7 +14,9 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TwinColSelect;
+
 import java.util.Arrays;
+
 import org.vaadin.maddon.ListContainer;
 
 /**
@@ -97,6 +99,16 @@ public class TypedSelect<T> extends CustomComponent implements Field<T> {
     	super.setStyleName(style);
     }
     
+    public void addMValueChangeListener(MValueChangeListener<T> listener) {
+        getSelect().addListener(MValueChangeEvent.class, listener,
+                MValueChangeEventImpl.VALUE_CHANGE_METHOD);
+    }
+    
+    public void removeMValueChangeListener(MValueChangeListener<T> listener) {
+        getSelect().removeListener(MValueChangeEvent.class, listener,
+                MValueChangeEventImpl.VALUE_CHANGE_METHOD);
+    }
+
 
     /**
      * Note, that with this constructor, you cannot override the select type.
@@ -119,6 +131,11 @@ public class TypedSelect<T> extends CustomComponent implements Field<T> {
                 public String getItemCaption(Object itemId) {
                     return TypedSelect.this.getCaption((T) itemId);
                 }
+                @Override
+                protected void fireValueChange(boolean repaintIsNotNeeded) {
+                	super.fireValueChange(repaintIsNotNeeded);
+                	fireEvent(new MValueChangeEventImpl<T>(this));
+                }
             };
         } else if (selectType == OptionGroup.class) {
             select = new OptionGroup() {
@@ -126,6 +143,11 @@ public class TypedSelect<T> extends CustomComponent implements Field<T> {
                 @Override
                 public String getItemCaption(Object itemId) {
                     return TypedSelect.this.getCaption((T) itemId);
+                }
+                @Override
+                protected void fireValueChange(boolean repaintIsNotNeeded) {
+                	super.fireValueChange(repaintIsNotNeeded);
+                	fireEvent(new MValueChangeEventImpl<T>(this));
                 }
             };
         } else if (selectType == ComboBox.class) {
@@ -135,6 +157,11 @@ public class TypedSelect<T> extends CustomComponent implements Field<T> {
                 public String getItemCaption(Object itemId) {
                     return TypedSelect.this.getCaption((T) itemId);
                 }
+                @Override
+                protected void fireValueChange(boolean repaintIsNotNeeded) {
+                	super.fireValueChange(repaintIsNotNeeded);
+                	fireEvent(new MValueChangeEventImpl<T>(this));
+                }
             };
         } else if (selectType == TwinColSelect.class) {
             select = new TwinColSelect() {
@@ -143,6 +170,11 @@ public class TypedSelect<T> extends CustomComponent implements Field<T> {
                 public String getItemCaption(Object itemId) {
                     return TypedSelect.this.getCaption((T) itemId);
                 }
+                @Override
+                protected void fireValueChange(boolean repaintIsNotNeeded) {
+                	super.fireValueChange(repaintIsNotNeeded);
+                	fireEvent(new MValueChangeEventImpl<T>(this));
+                }
             };
         } else /*if (selectType == null || selectType == NativeSelect.class)*/ {
             select = new NativeSelect() {
@@ -150,6 +182,11 @@ public class TypedSelect<T> extends CustomComponent implements Field<T> {
                 @Override
                 public String getItemCaption(Object itemId) {
                     return TypedSelect.this.getCaption((T) itemId);
+                }
+                @Override
+                protected void fireValueChange(boolean repaintIsNotNeeded) {
+                	super.fireValueChange(repaintIsNotNeeded);
+                	fireEvent(new MValueChangeEventImpl<T>(this));
                 }
             };
         }
